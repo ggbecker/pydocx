@@ -429,14 +429,14 @@ class PyDocXHTMLExporter(PyDocXExporter):
         attrs = {
             'class': 'pydocx-strike',
         }
-        tag = HtmlTag('span', **attrs)
+        tag = HtmlTag('del', **attrs)
         return self.export_run_property(tag, run, results)
 
     def export_run_property_strike(self, run, results):
         attrs = {
             'class': 'pydocx-strike',
         }
-        tag = HtmlTag('span', **attrs)
+        tag = HtmlTag('del', **attrs)
         return self.export_run_property(tag, run, results)
 
     def export_run_property_vanish(self, run, results):
@@ -482,6 +482,20 @@ class PyDocXHTMLExporter(PyDocXExporter):
             'style': 'color:#' + run.properties.color
         }
         tag = HtmlTag('span', **attrs)
+        return self.export_run_property(tag, run, results)
+
+    def export_run_property_highlight_color(self, run, results):
+        if run.properties is None or run.properties.highlight_color is None:
+            return results
+
+        attrs = {
+            'style': 'background-color: %s' % run.properties.highlight_color
+        }
+        if(bool(run.properties.strike)):
+            tag = HtmlTag('span', **attrs)
+        else:
+            tag = HtmlTag('ins', **attrs)
+
         return self.export_run_property(tag, run, results)
 
     def export_text(self, text):

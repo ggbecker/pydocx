@@ -28,6 +28,7 @@ class RunProperties(XmlModel):
     sz = XmlChild(name='sz', attrname='val')
     clr = XmlChild(name='color', attrname='val')
     r_fonts = XmlChild(type=RFonts)
+    highlight_clr = XmlChild(name='highlight', attrname='val')
 
     @property
     def color(self):
@@ -38,6 +39,14 @@ class RunProperties(XmlModel):
             return
 
         return self.clr
+
+    @property
+    def highlight_color(self):
+        if self.highlight_clr is None:
+            return
+
+        return self.highlight_clr
+
 
     @property
     def position(self):
